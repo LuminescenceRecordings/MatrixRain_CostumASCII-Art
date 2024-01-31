@@ -6,7 +6,7 @@ c.height = window.innerHeight;
 c.width = window.innerWidth;
 
 //将字符串转换为单字符数组
-var konkani = " #,.?0123456789:;@ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz$"
+var konkani = " #,.?0123456789:;@ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz$";
 var characters = konkani.split("");
 
 var font_size = 14;
@@ -16,9 +16,18 @@ var columns = c.width/font_size;
 //x是x坐标，drops[x]的值是y坐标，浏览器向下y是正值
 var drops = [];
 
+//Canvas中，文本从坐标的左下角开始绘制，所以y坐标份数初始为1
 for (var x = 0; x < columns; x++) {
     drops[x] = 1;
 }
+
+//----定位测试施工中----
+const asciiArt = "A";
+
+//非14倍数窗口，用以定位最后一行
+var pieceY = Math.floor(c.height / font_size);  
+
+
 
 
 function draw() {
@@ -27,17 +36,14 @@ function draw() {
     ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
     ctx.fillRect(0, 0, c.width, c.height);
 
-    //字体
-    //ctx.font = font_size + "px arial";
+    //字符颜色
+    ctx.fillStyle = "#00FFFF";
 
     //遍历字符变化
-    for (var i = 0; i < drops.length; i++)
-    {
+    for (var i = 0; i < drops.length; i++) {
         //随机生成字符
         var text = characters[Math.floor(Math.random() * characters.length)];
-        
-        //字符颜色
-        ctx.fillStyle = "#FFFF00";
+                
         //字符变化内容、坐标
         ctx.fillText(text, i * font_size, drops[i] * font_size);
 
@@ -46,8 +52,12 @@ function draw() {
 
         //字符变化坐标复位
         if (drops[i] * font_size > c.height && Math.random() > 0.975)
-			      drops[i] = 0;
+			      drops[i] = 1;
     }
+
+    //----定位测试施工中----
+    ctx.fillStyle = "#00FFFF";
+    ctx.fillText(asciiArt, 0, pieceY * font_size);
 }
 
 //更改窗口大小会重新执行程序
