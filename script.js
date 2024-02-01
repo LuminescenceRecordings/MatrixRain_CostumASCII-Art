@@ -25,9 +25,10 @@ for (var x = 0; x < columns; x++) {
 const asciiArt = "A";
 
 //非14倍数窗口，用以定位最后一行
-var pieceY = Math.floor(c.height / font_size);  
+// var pieceY = Math.floor(c.height / font_size);  
+var pieceY = 30;
 
-
+var stopArtPx = false; 
 
 
 function draw() {
@@ -47,17 +48,36 @@ function draw() {
         //字符变化内容、坐标
         ctx.fillText(text, i * font_size, drops[i] * font_size);
 
+                
+        //----定位测试施工中----
+
+        //雨滴字符接触到图案字符触发雨痕特效
+        if (i == 0 && drops[i] == pieceY) {
+            stopArtPx = true;
+        }
+
+        if (i == 0 && drops[i] == pieceY + 8) {
+            stopArtPx = false;
+        }
+        
+        //此clearRect()防止逐渐消失，而是立即消失
+        ctx.clearRect(0, pieceY * font_size - font_size, font_size, font_size);
+
+        if (stopArtPx == false) {
+            //此clearRect()防止字体不断变厚
+            ctx.clearRect(0, pieceY * font_size - font_size, font_size, font_size);
+            ctx.fillStyle = "#00FFFF";
+            ctx.fillText(asciiArt, 0, pieceY * font_size);
+        }
+
+
         //不断在下一行变化字符
         drops[i]++;
 
         //字符变化坐标复位
-        if (drops[i] * font_size > c.height && Math.random() > 0.975)
+        if (drops[i] * font_size > c.height + 8 * font_size && Math.random() > 0.975)
 			      drops[i] = 1;
     }
-
-    //----定位测试施工中----
-    ctx.fillStyle = "#00FFFF";
-    ctx.fillText(asciiArt, 0, pieceY * font_size);
 }
 
 //更改窗口大小会重新执行程序
