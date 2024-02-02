@@ -15,20 +15,37 @@ var columns = c.width/font_size;
 
 //x是x坐标，drops[x]的值是y坐标，浏览器向下y是正值
 var drops = [];
-
 //Canvas中，文本从坐标的左下角开始绘制，所以y坐标份数初始为1
 for (var x = 0; x < columns; x++) {
     drops[x] = 1;
 }
 
-//----定位测试施工中----
-const asciiArt = "A";
+//Ascii图案
+const asciiArt = [
+    "   A   ",
+    "  A A  ",
+    " A   A ",
+    " AAAAA ",
+    " A   A ",
+    " A   A "
+];
 
-//非14倍数窗口，用以定位最后一行
-// var pieceY = Math.floor(c.height / font_size);  
-var pieceY = 30;
+//为每个Ascii图案字符配置Bool值
+var collisionMap = [];
 
-var stopArtPx = false; 
+for (var j = 0; j < asciiArt.length; j++) {
+    collisionMap[j] = [];
+    for (var k = 0; k < asciiArt[j].length; k++) {
+        collisionMap[j][k] = false;
+    }
+}
+
+//确保ASCII图案紧贴窗口最下方
+var fullPieceY = Math.floor(c.height / font_size);
+var pieceY = fullPieceY - asciiArt.length + 1;  
+//确保ASCII图案于窗口x轴居中，待改进----------------
+var fullPieceX = Math.floor(c.width / font_size);
+var pieceX = Math.floor(fullPieceX / 2);
 
 
 function draw() {
@@ -43,33 +60,34 @@ function draw() {
     //遍历字符变化
     for (var i = 0; i < drops.length; i++) {
         //随机生成字符
-        var text = characters[Math.floor(Math.random() * characters.length)];
-                
+        var text = characters[Math.floor(Math.random() * characters.length)];               
         //字符变化内容、坐标
         ctx.fillText(text, i * font_size, drops[i] * font_size);
 
+        ctx.fillStyle = "#00FFFF";
+
+        //绘制ASCII图案字符
+        for (var j = 0; j < asciiArt.length; j++) {
+            for (var k = 0; k < asciiArt[j].length; k++){
+                //雨滴字符接触到图案字符触发雨痕特效
+                if (i == k + pieceX && drops[i] == pieceY + j) {
+                    collisionMap[j][k] = true;
+                }
+
+                if (i == k + pieceX && drops[i] == pieceY + 8) {
+                    collisionMap[j][k] = false;
+                }
                 
-        //----定位测试施工中----
+                //此clearRect()防止逐渐消失，而是立即消失，同时防止ASCII图案字符堆叠变厚
+                ctx.clearRect((k + pieceX) * font_size, (pieceY + j - 1) * font_size, font_size, font_size);
 
-        //雨滴字符接触到图案字符触发雨痕特效
-        if (i == 0 && drops[i] == pieceY) {
-            stopArtPx = true;
+                if (!collisionMap[j][k]) {
+                    //绘制每一个ASCII图案字符
+                    var char = asciiArt[j][k];
+                    ctx.fillText(char, (k + pieceX) * font_size, (pieceY + j) * font_size);
+                }
+            }
         }
-
-        if (i == 0 && drops[i] == pieceY + 8) {
-            stopArtPx = false;
-        }
-        
-        //此clearRect()防止逐渐消失，而是立即消失
-        ctx.clearRect(0, pieceY * font_size - font_size, font_size, font_size);
-
-        if (stopArtPx == false) {
-            //此clearRect()防止字体不断变厚
-            ctx.clearRect(0, pieceY * font_size - font_size, font_size, font_size);
-            ctx.fillStyle = "#00FFFF";
-            ctx.fillText(asciiArt, 0, pieceY * font_size);
-        }
-
 
         //不断在下一行变化字符
         drops[i]++;
