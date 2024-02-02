@@ -43,9 +43,9 @@ for (var j = 0; j < asciiArt.length; j++) {
 //确保ASCII图案紧贴窗口最下方
 var fullPieceY = Math.floor(c.height / font_size);
 var pieceY = fullPieceY - asciiArt.length + 1;  
-//确保ASCII图案于窗口x轴居中，待改进----------------
+//确保ASCII图案于窗口x轴居中
 var fullPieceX = Math.floor(c.width / font_size);
-var pieceX = Math.floor(fullPieceX / 2);
+var pieceX = Math.floor((fullPieceX - asciiArt[0].length) / 2);
 
 
 function draw() {
@@ -78,8 +78,10 @@ function draw() {
                     collisionMap[j][k] = false;
                 }
                 
-                //此clearRect()防止逐渐消失，而是立即消失，同时防止ASCII图案字符堆叠变厚
-                ctx.clearRect((k + pieceX) * font_size, (pieceY + j - 1) * font_size, font_size, font_size);
+                if(asciiArt[j][k] != " ") {
+                    //此clearRect()防止逐渐消失，而是立即消失，同时防止ASCII图案字符堆叠变厚
+                    ctx.clearRect((k + pieceX) * font_size, (pieceY + j - 1) * font_size, font_size, font_size);
+                }
 
                 if (!collisionMap[j][k]) {
                     //绘制每一个ASCII图案字符
