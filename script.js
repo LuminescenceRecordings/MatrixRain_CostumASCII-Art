@@ -22,23 +22,23 @@ for (var x = 0; x < columns; x++) {
 
 //Ascii图案
 const asciiArt = [
-    "   A   ",
-    "  A A  ",
-    " A   A ",
-    " AAAAA ",
-    " A   A ",
-    " A   A "
+    "                              ",
+    "           i                  ",
+    "          .PU         :sQ:    ",
+    "          iJL7....  :1JSdu    ",
+    "         .:.:7sv7rvuD1gB5r    ",
+    "      ::::..7Y:::riiijBIs.    ",
+    "     .. qQ7:ri.:7rri:.:rdv    ",
+    "     .  :r...rgQBQ:i:i:iJ2.   ",
+    "    .  rri. .:rr7:......:r:   ",
+    "    . rBBBS .:.. ....:.::rr.  ",
+    "    ..JQBgr.:::.:.::i:::7r7i  ",
+    "    ...gBBg5Xb7:ii:i::.ir7r7  ",
+    "     ...iirv7i::i::::irr7Ysvi ",
+    "     ::....::iii.:::iirLjJ7vi ",
+    "     :i:i:iiiirrririii7v7iiii ",
+    "     ....:iiir::.:.:.... ..:: "    
 ];
-
-//为每个Ascii图案字符配置Bool值
-var collisionMap = [];
-
-for (var j = 0; j < asciiArt.length; j++) {
-    collisionMap[j] = [];
-    for (var k = 0; k < asciiArt[j].length; k++) {
-        collisionMap[j][k] = false;
-    }
-}
 
 //确保ASCII图案紧贴窗口最下方
 var fullPieceY = Math.floor(c.height / font_size);
@@ -47,8 +47,36 @@ var pieceY = fullPieceY - asciiArt.length + 1;
 var fullPieceX = Math.floor(c.width / font_size);
 var pieceX = Math.floor((fullPieceX - asciiArt[0].length) / 2);
 
+ctx.fillStyle = "#00FFFF";
+
+
+//更改窗口大小会重新执行程序
+window.onresize=()=>{
+    location.reload();
+}
+
+//内容执行、执行间隔
+//此段代码才是雨滴尾迹效果产生的核心执行
+setInterval(draw, 50);
+
+
+//绘制ASCII图案字符
+function drawAsciiArt() {
+    for (var j = 0; j < asciiArt.length; j++) {
+        for (var k = 0; k < asciiArt[j].length; k++){          
+            //此clearRect()防止逐渐消失，同时防止ASCII图案字符堆叠变厚
+            ctx.clearRect((k + pieceX) * font_size, (pieceY + j - 1) * font_size, font_size, font_size);
+            //绘制每一个ASCII图案字符
+            var char = asciiArt[j][k];
+            ctx.fillText(char, (k + pieceX) * font_size, (pieceY + j) * font_size);    
+        }
+    }
+}
+
 
 function draw() {
+    drawAsciiArt();
+    
     //通过不断全屏覆盖半透明的黑色玻璃板，新字符的产生永远在最上层，从而产生雨滴尾迹效果
     //执行见下方代码setInterval();
     ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
@@ -61,36 +89,23 @@ function draw() {
     for (var i = 0; i < drops.length; i++) {
         //随机生成字符
         var text = characters[Math.floor(Math.random() * characters.length)];               
-        //字符变化内容、坐标
-        ctx.fillText(text, i * font_size, drops[i] * font_size);
+        
+        ctx.clearRect(i * font_size, (drops[i] - 1) * font_size, font_size, font_size);
+        
+        //非ASCII图案内的雨滴进行绘制
+        if (i < pieceX || i >= pieceX + asciiArt[0].length || drops[i] < pieceY) {
+            //字符变化内容、坐标
+            ctx.fillText(text, i * font_size, drops[i] * font_size);
+        } 
+        
+        if (drops[i] >= pieceY && drops[i] < asciiArt.length + pieceY && 
+            i >= pieceX && i < asciiArt[0].length + pieceX) {
 
-        ctx.fillStyle = "#00FFFF";
-
-        //绘制ASCII图案字符
-        for (var j = 0; j < asciiArt.length; j++) {
-            for (var k = 0; k < asciiArt[j].length; k++){
-                //雨滴字符接触到图案字符触发雨痕特效
-                if (i == k + pieceX && drops[i] == pieceY + j) {
-                    collisionMap[j][k] = true;
-                }
-
-                if (i == k + pieceX && drops[i] == pieceY + 8) {
-                    collisionMap[j][k] = false;
-                }
-                
-                if(asciiArt[j][k] != " ") {
-                    //此clearRect()防止逐渐消失，而是立即消失，同时防止ASCII图案字符堆叠变厚
-                    ctx.clearRect((k + pieceX) * font_size, (pieceY + j - 1) * font_size, font_size, font_size);
-                }
-
-                if (!collisionMap[j][k]) {
-                    //绘制每一个ASCII图案字符
-                    var char = asciiArt[j][k];
-                    ctx.fillText(char, (k + pieceX) * font_size, (pieceY + j) * font_size);
-                }
+            if (asciiArt[drops[i] - pieceY][i - pieceX] == " ") {
+                ctx.fillText(text, i * font_size, drops[i] * font_size);
             }
         }
-
+        
         //不断在下一行变化字符
         drops[i]++;
 
@@ -99,12 +114,3 @@ function draw() {
 			      drops[i] = 1;
     }
 }
-
-//更改窗口大小会重新执行程序
-window.onresize=()=>{
-    location.reload();
-}
-
-//内容执行、执行间隔
-//此段代码才是雨滴尾迹效果产生的核心执行
-setInterval(draw, 50);
