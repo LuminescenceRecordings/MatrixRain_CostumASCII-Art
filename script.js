@@ -22,23 +22,51 @@ for (var x = 0; x < columns; x++) {
 
 //Ascii图案
 const asciiArt = [
-    "                              ",
-    "           i                  ",
-    "          .PU         :sQ:    ",
-    "          iJL7....  :1JSdu    ",
-    "         .:.:7sv7rvuD1gB5r    ",
-    "      ::::..7Y:::riiijBIs.    ",
-    "     .. qQ7:ri.:7rri:.:rdv    ",
-    "     .  :r...rgQBQ:i:i:iJ2.   ",
-    "    .  rri. .:rr7:......:r:   ",
-    "    . rBBBS .:.. ....:.::rr.  ",
-    "    ..JQBgr.:::.:.::i:::7r7i  ",
-    "    ...gBBg5Xb7:ii:i::.ir7r7  ",
-    "     ...iirv7i::i::::irr7Ysvi ",
-    "     ::....::iii.:::iirLjJ7vi ",
-    "     :i:i:iiiirrririii7v7iiii ",
-    "     ....:iiir::.:.:.... ..:: "    
-];
+    "                                                                                ",
+    "                                                                                ",
+    "                            :i.                                                 ",
+    "                           .rJY:                               .                ",
+    "                           .i71v.                           :r7717              ",
+    "                           .:rvu7.                         i7JvuSdi             ",
+    "                           :i7Yvsr                       .77ri7J5KS             ",
+    "                          .i:rYjvs7.                   .ivv7r7r7LIb:            ",
+    "                          :r7r77vrv7i..              .r7IsrrvYJLvvX7            ",
+    "                          ivsr:::::ii7r7rrirrrrr:::.:77Iur7svs1UY7ju            ",
+    "                         .i::.::::iiriririiiiirr7751v7KIr72XPdE5svSs            ",
+    "                       .:i::.::i:ii777rriiii:i:iiiruXP57irr2gQdUrY27            ",
+    "                  ..::i::::...::ii7vrrrrriiiriiiiii:vI5vrisDBDq7r71.            ",
+    "                .:::::.:::.....::rvr:rrrrriririiiiii::YJvZQBgS7::Y7             ",
+    "               ::.:...........::r77rrii:::iiririi:iii::i2dBdu7r755r             ",
+    "              .::::...:i:.::.:i77v77i:.::::ii77riiiiii:::i7vrrrssrr.            ",
+    "              :::....vgBBDY.:irr7r7i:.......::rrrriiii:::..:7v7vus7::           ",
+    "             .:.    :rPZBBq::i::::::....isv:..:irririi::::..:r71qXvr:.          ",
+    "            .::   . ivQBBd:::.:::.::::rqduRBB1iiiiiii:iii:i:::i75qjrr:          ",
+    "            .:   ..::rsL...:::...:iYJgBS 5gBBBQLiriiiiiiiiiiii:i717ri:          ",
+    "            ..  . :i:.  ....:.::::i7JQBIYQBBBPv:::::::i:::iii:iirrrrr:          ",
+    "           ... .       ......:::::ir::7Sj21Yi....:.....::::::iiiirirrr          ",
+    "           .. .    .:ii:::..:.::::::i...:::..::::.....i::.:.::::iiriri.         ",
+    "          .:...  dBBQREDgEs:.....:::::.::iii:i::......::.:::.::::i:i:ii         ",
+    "          ...:. .QBQBBBBBQB5......::::......:::::...........::::::ii:ir.        ",
+    "          ....  :qgRRQBBBBBs...:.:::::.........:.:.:.:::.::::::iirri:iii        ",
+    "          ......ibQRQDQRQE1i::i::::::.:.:.......::....::::::iii:rrrii:ii:       ",
+    "          ....:ivUSDRMDDUYii:i::.::i::.:::::::...:::.::iiiii:i:ir7riiiiii.      ",
+    "          .....iu2I1Xu25Xsririiii:i:i:::::::::i:::::iiiii:::::rrrr7irrrii:      ",
+    "          ......:PgBBBDPPP7i:::::..:iri::::i:ii::::i::::.::::::rrriir7iii:      ",
+    "          .......sggQQBBBBB5v:r7JIPbguri::iii:::::i::...:.::::irrirrririi:.     ",
+    "           .......:jPdddEDMBBBMBBBMPJr:::i::::::::::.::::::::irrrrrririiir:     ",
+    "           .:......:v1JvYr7LIu7vvrri:::::ii:::::::::::::::iiiirrrrrr777iiii     ",
+    "            .....:...iri:i:::::i::.:.::i:i:iii::::.::::::iiir7rrirrv7vrririi    ",
+    "             ...:.:......:::::::::iiiirii:i:i:i::.:.::::rirr7rrr7rLvvrririi:.   ",
+    "             ::..:.:::.::::::i:iiiiiiiiiii:::::::::::::i:iirrrrvLYvv7rrrrrii.   ",
+    "            ..:::.:.::::::::iii:iiiiiiiii:..:.::::iiiiiiiirirrvvYvv7rirrriii:   ",
+    "            .::::::::::::::i:iiiiiii:iii::::.::::ii::iiiiiiir7777vriiiii:::i.   ",
+    "            .:::::i:::::::::i:iii:r:iiiii:iii:iiri::::::i:rrrrv7vriii:::::::.   ",
+    "            ::.:.::::iii:::::::i:iii:iirirr7rriiii:iir:iii:iirii::::::::::::.   ",
+    "            :.:.:.::::iirrriiirrrrrrrrrr7r7rri::i:i:i:::iirr7i::::::::::::i..   ",
+    "           ....:.::::::iirr7r7r77vvv77rrri:::::i:::i:::i:ii:.:.:::::::::::::.   ",
+    "           .....::::::i:iiiirrrirrrirri::::::iriiii:::i::::::.::::::::::::ir.   ",
+    "           .   . ......:::::::ii::::...:...:.......:......................:i    ",
+    ];
 
 //确保ASCII图案紧贴窗口最下方
 var fullPieceY = Math.floor(c.height / font_size);
@@ -65,10 +93,12 @@ function drawAsciiArt() {
     for (var j = 0; j < asciiArt.length; j++) {
         for (var k = 0; k < asciiArt[j].length; k++){          
             //此clearRect()防止逐渐消失，同时防止ASCII图案字符堆叠变厚
-            ctx.clearRect((k + pieceX) * font_size, (pieceY + j - 1) * font_size, font_size, font_size);
             //绘制每一个ASCII图案字符
             var char = asciiArt[j][k];
-            ctx.fillText(char, (k + pieceX) * font_size, (pieceY + j) * font_size);    
+            if (char != " ") {
+                ctx.clearRect((k + pieceX) * font_size, (pieceY + j - 1) * font_size, font_size, font_size);
+                ctx.fillText(char, (k + pieceX) * font_size, (pieceY + j) * font_size);
+            }    
         }
     }
 }
@@ -92,14 +122,15 @@ function draw() {
         
         ctx.clearRect(i * font_size, (drops[i] - 1) * font_size, font_size, font_size);
         
-        //非ASCII图案内的雨滴进行绘制
+        //非ASCII图案矩形内的雨滴进行绘制
         if (i < pieceX || i >= pieceX + asciiArt[0].length || drops[i] < pieceY) {
             //字符变化内容、坐标
             ctx.fillText(text, i * font_size, drops[i] * font_size);
         } 
         
-        if (drops[i] >= pieceY && drops[i] < asciiArt.length + pieceY && 
-            i >= pieceX && i < asciiArt[0].length + pieceX) {
+        //对ASCII图案矩形内的空格字符处的雨滴进行绘制
+        if (drops[i] >= pieceY && drops[i] < pieceY + asciiArt.length && 
+            i >= pieceX && i < pieceX + asciiArt[0].length) {
 
             if (asciiArt[drops[i] - pieceY][i - pieceX] == " ") {
                 ctx.fillText(text, i * font_size, drops[i] * font_size);
