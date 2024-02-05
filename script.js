@@ -20,57 +20,7 @@ for (var x = 0; x < columns; x++) {
     drops[x] = 1;
 }
 
-//Ascii图案
-const asciiArt = [
-    "                                                  ",
-    "                                                  ",
-    "                  i                               ",
-    "                 .ur                              ",
-    "                 .jU.                 :rY.        ",
-    "                 .r2i                :sJqv        ",
-    "                 .7jj.              .7rvb5        ",
-    "                 :rusr             .77i71Z.       ",
-    "                .irsuJi           :vLrvvjP:       ",
-    "                .Yviirrr::....   :v2r7L1v5i       ",
-    "                :vi.::ii777rv77rrrIL7JUIuur       ",
-    "                ::.::iiririi:iiYjjSrvPMdvSr       ",
-    "              .::.::ii77rii:::r:JdJiiSB57U:       ",
-    "           .:i:::..::77riririiii:uUrvBRjiu.       ",
-    "          :::::::...ivrirriiriii::vsBBqirv        ",
-    "         .::.......:rvri:::iiriii::jREr7Xj        ",
-    "         .::..i::..i77r:.::i77riii::r7r7Jr.       ",
-    "         ::..rQB1.:r7v:..:.::7ri:i::.i7vjJ:       ",
-    "        .:.  rDBM.::ii:...r..:rrrii:..rYP1r.      ",
-    "        ..   vQB1..:::::ibRBv:irii:i:::rqXr:      ",
-    "        :   .7Z7..::.:7IB:1QB2iii:iii:::JU7.      ",
-    "       ..  .i:.......:vBRrBBB1:i:iiiii:irvr:      ",
-    "       ..  .:......:::rvgKRgr.:..:::::i:rr7i      ",
-    "       ...   ....:.::ii:.ii..:....::.::iirrr      ",
-    "       ..  iI1jJi...::i:::i:i::..:r::::::iir.     ",
-    "       :. .BBBBBQi ..:::.::::::......:.::iir:     ",
-    "       .: .QBBBBBL ...::....:::.......:::iiir     ",
-    "       .. :RQQQBBr.:::::.......:.:.:::::iriii.    ",
-    "      ....igBRQM2:::::i...:...:..:::::i:rriir:    ",
-    "       ..:vKDREXr:::::::.:::...::::ii::ir7iiii    ",
-    "      ....s5XUIXviiii:i::::::i:::ii:::ii7rrrri.   ",
-    "      ....:gBBDEu:::..:r:::iii:ii:.::::rrri7ri.   ",
-    "       .. .PQQBBBu::v5gUi:::i:::::..:.:iririii.   ",
-    "       ....:IgEgQBQQQBP7:i:::::::::::::rrrrriri   ",
-    "       .....r21vvIXvY7r.::i::::::::::iiirr77rrr   ",
-    "       ....:.rrr:i:i:::::iii:::::::::irrir7vrrr:  ",
-    "        ..::..:.::::::i:i:iii::.:::iirrrr7vrrrr:  ",
-    "        .:.:.:.:::ii:iirir:::::::::iirrrvLv7r7i:  ",
-    "        :::.::::::i:iiiii:::::::i:i:irr7sv7rrrri  ",
-    "        ::::.:::::ii:i:iii...::::iiiiirv7vrriiii  ",
-    "        ::::::::iiiiiii:r:::::ii::::ii77vr:ii:i:  ",
-    "       .:::::::::::i:iiiiiiriri::i:iirr7rii:::::  ",
-    "       .:.::::i:::::i:iirirrr:i:iiiiir7:::::::::  ",
-    "       ..:.::::rrrir77r7rrrr:::::i:irr::::::::::  ",
-    "       ...:.::iir7rr77vrri::::::i:i:i::.::::::i:  ",
-    "       ....::::iiiiririr::::irii::::::.:::::::ir  ",
-    "          ....::::::i::.:.......:.......... ..::  ",    
-];
-
+//asciiArt变量已在asciiArt.js中声明
 //确保ASCII图案紧贴窗口最下方
 var fullPieceY = Math.floor(c.height / font_size);
 var pieceY = fullPieceY - asciiArt.length + 1;  
