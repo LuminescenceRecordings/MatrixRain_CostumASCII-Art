@@ -84,7 +84,7 @@ function drawMatrixRain() {
         } 
         
         //对ASCII图案矩形内的空格字符处的雨滴进行绘制
-        if (drops[i] >= pieceY && drops[i] < pieceY + asciiArt.length && 
+        else if (drops[i] >= pieceY && drops[i] < pieceY + asciiArt.length && 
             i >= pieceX && i < pieceX + asciiArt[0].length) {
 
             if (asciiArt[drops[i] - pieceY][i - pieceX] == " ") {
