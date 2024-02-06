@@ -1,4 +1,4 @@
-# MartrixRainCostum
+# MatrixRainCostum
 ![Step](GitHub_Tutorial/11.jpg)
 On top of this, https://github.com/bad1dea/lively_matrix
 
