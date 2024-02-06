@@ -24,3 +24,4 @@ Download Lively Wallpaper from https://www.rocksdanister.com/lively/
 ![Step](GitHub_Tutorial/9.jpg)
 ![Step](GitHub_Tutorial/10.jpg)
 ![Step](GitHub_Tutorial/11.jpg)
+![Step](GitHub_Tutorial/12.jpg)
