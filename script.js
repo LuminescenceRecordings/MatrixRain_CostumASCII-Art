@@ -28,8 +28,6 @@ var pieceY = fullPieceY - asciiArt.length + 1;
 var fullPieceX = Math.floor(c.width / font_size);
 var pieceX = Math.floor((fullPieceX - asciiArt[0].length) / 2);
 
-ctx.fillStyle = "#00FFFF";
-
 
 //更改窗口大小会重新执行程序
 window.onresize=()=>{
@@ -40,6 +38,21 @@ window.onresize=()=>{
 //此段代码才是雨滴尾迹效果产生的核心执行
 setInterval(draw, 50);
 
+//main
+function draw() {
+    //ASCII图案字符颜色并绘制
+    ctx.fillStyle = "#00FFFF";
+    drawAsciiArt();
+    
+    //通过不断全屏覆盖半透明的黑色玻璃板，新字符的产生永远在最上层，从而产生雨滴尾迹效果
+    //执行见代码setInterval();
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, c.width, c.height);
+
+    //设置雨滴字符颜色并绘制
+    ctx.fillStyle = "#00FFFF";
+    drawMatrixRain();   
+}
 
 //绘制ASCII图案字符
 function drawAsciiArt() {
@@ -56,18 +69,8 @@ function drawAsciiArt() {
     }
 }
 
-
-function draw() {
-    drawAsciiArt();
-    
-    //通过不断全屏覆盖半透明的黑色玻璃板，新字符的产生永远在最上层，从而产生雨滴尾迹效果
-    //执行见下方代码setInterval();
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-    ctx.fillRect(0, 0, c.width, c.height);
-
-    //字符颜色
-    ctx.fillStyle = "#00FFFF";
-
+//绘制雨滴字符
+function drawMatrixRain() {
     //遍历字符变化
     for (var i = 0; i < drops.length; i++) {
         //随机生成字符
