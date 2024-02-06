@@ -6,8 +6,7 @@ c.height = window.innerHeight;
 c.width = window.innerWidth;
 
 //将字符串转换为单字符数组
-var konkani = " #,.?0123456789:;@ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz$";
-var characters = konkani.split("");
+var splitedChars = characters.split("");
 
 var font_size = 14;
 //计算字符列数
@@ -36,12 +35,12 @@ window.onresize=()=>{
 
 //内容执行、执行间隔
 //此段代码才是雨滴尾迹效果产生的核心执行
-setInterval(draw, 50);
+setInterval(draw, processInterval);
 
 //main
 function draw() {
     //ASCII图案字符颜色并绘制
-    ctx.fillStyle = "#00FFFF";
+    ctx.fillStyle = asciiArtColor;
     drawAsciiArt();
     
     //通过不断全屏覆盖半透明的黑色玻璃板，新字符的产生永远在最上层，从而产生雨滴尾迹效果
@@ -50,7 +49,7 @@ function draw() {
     ctx.fillRect(0, 0, c.width, c.height);
 
     //设置雨滴字符颜色并绘制
-    ctx.fillStyle = "#00FFFF";
+    ctx.fillStyle = rainColor;
     drawMatrixRain();   
 }
 
@@ -74,7 +73,7 @@ function drawMatrixRain() {
     //遍历字符变化
     for (var i = 0; i < drops.length; i++) {
         //随机生成字符
-        var text = characters[Math.floor(Math.random() * characters.length)];               
+        var text = splitedChars[Math.floor(Math.random() * splitedChars.length)];               
         
         ctx.clearRect(i * font_size, (drops[i] - 1) * font_size, font_size, font_size);
         
