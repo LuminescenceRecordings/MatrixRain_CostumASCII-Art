@@ -43,7 +43,8 @@ window.onresize=()=>{
 setInterval(draw, processInterval);
 
 
-//main
+//<<----Main---->>
+
 function draw() {
     //ASCII图案字符颜色并绘制
     ctx.fillStyle = asciiArtColor;
@@ -70,26 +71,6 @@ function drawAsciiArt() {
                 ctx.clearRect((k + pieceX) * font_size, (pieceY + j - 1) * font_size, font_size, font_size);
                 ctx.fillText(char, (k + pieceX) * font_size, (pieceY + j) * font_size);
             }    
-        }
-    }
-}
-
-//定位ASCII图案每一列第一个有字符的y值
-function firstCharOfColumn() {
-    for (var k = 0; k < asciiArt[0].length; k++){
-        let foundChar = false;
-
-        for (var j = 0; j < asciiArt.length; j++) {
-            var char = asciiArt[j][k];
-            if (char != " ") {
-                upperEdge.push(j);
-                foundChar = true;
-                break;
-            }
-        }
-
-        if (!foundChar) {
-            upperEdge.push(Infinity);
         }
     }
 }
@@ -127,3 +108,27 @@ function drawMatrixRain() {
         }
     }
 }
+
+
+//<<----Prepare---->>
+
+//定位ASCII图案每一列第一个有字符的y值
+function firstCharOfColumn() {
+    for (var k = 0; k < asciiArt[0].length; k++){
+        let foundChar = false;
+
+        for (var j = 0; j < asciiArt.length; j++) {
+            var char = asciiArt[j][k];
+            if (char != " ") {
+                upperEdge.push(j);
+                foundChar = true;
+                break;
+            }
+        }
+
+        if (!foundChar) {
+            upperEdge.push(Infinity);
+        }
+    }
+}
+
