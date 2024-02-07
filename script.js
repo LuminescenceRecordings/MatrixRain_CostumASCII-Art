@@ -20,6 +20,11 @@ for (var x = 0; x < columns; x++) {
 }
 
 //asciiArt变量已在asciiArt.js中声明
+
+//ASCII每一列第一个有字符的位置
+var upperEdge = [];
+firstCharOfColumn();
+
 //确保ASCII图案紧贴窗口最下方
 var fullPieceY = Math.floor(c.height / font_size);
 var pieceY = fullPieceY - asciiArt.length + 1;  
@@ -36,6 +41,7 @@ window.onresize=()=>{
 //内容执行、执行间隔
 //此段代码才是雨滴尾迹效果产生的核心执行
 setInterval(draw, processInterval);
+
 
 //main
 function draw() {
@@ -68,6 +74,26 @@ function drawAsciiArt() {
     }
 }
 
+//定位ASCII图案每一列第一个有字符的y值
+function firstCharOfColumn() {
+    for (var k = 0; k < asciiArt[0].length; k++){
+        let foundChar = false;
+
+        for (var j = 0; j < asciiArt.length; j++) {
+            var char = asciiArt[j][k];
+            if (char != " ") {
+                upperEdge.push(j);
+                foundChar = true;
+                break;
+            }
+        }
+
+        if (!foundChar) {
+            upperEdge.push(Infinity);
+        }
+    }
+}
+
 //绘制雨滴字符
 function drawMatrixRain() {
     //遍历字符变化
@@ -87,7 +113,7 @@ function drawMatrixRain() {
         else if (drops[i] >= pieceY && drops[i] < pieceY + asciiArt.length && 
             i >= pieceX && i < pieceX + asciiArt[0].length) {
 
-            if (asciiArt[drops[i] - pieceY][i - pieceX] == " ") {
+            if (asciiArt[drops[i] - pieceY][i - pieceX] == " " && drops[i] - pieceY < upperEdge[i - pieceX]) {
                 ctx.fillText(text, i * font_size, drops[i] * font_size);
             }
         }
@@ -96,7 +122,8 @@ function drawMatrixRain() {
         drops[i]++;
 
         //字符变化坐标复位
-        if (drops[i] * font_size > c.height + 8 * font_size && Math.random() > 0.975)
-			      drops[i] = 1;
+        if (drops[i] * font_size > c.height + 8 * font_size && Math.random() > 0.975) {
+            drops[i] = 1;
+        }
     }
 }
