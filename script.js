@@ -82,21 +82,14 @@ function drawMatrixRain() {
         //随机生成字符
         var text = splitedChars[Math.floor(Math.random() * splitedChars.length)];               
         
+        //注释掉半透明黑色玻璃板可测试其字符不会堆叠的清爽效果
         ctx.clearRect(i * font_size, (drops[i] - 1) * font_size, font_size, font_size);
-        
-        //非ASCII图案矩形内的雨滴进行绘制
-        if (i < pieceX || i >= pieceX + asciiArt[0].length || drops[i] < pieceY) {
-            //字符变化内容、坐标
+     
+        //在ASCII图像最上边缘以下的位置清空处理，其余位置正常下雨
+        if (drops[i] - pieceY >= upperEdge[i - pieceX]) {
+            ctx.clearRect(i * font_size, (drops[i] - 1) * font_size, font_size, font_size);
+        } else {
             ctx.fillText(text, i * font_size, drops[i] * font_size);
-        } 
-        
-        //对ASCII图案矩形内的空格字符处的雨滴进行绘制
-        else if (drops[i] >= pieceY && drops[i] < pieceY + asciiArt.length && 
-            i >= pieceX && i < pieceX + asciiArt[0].length) {
-
-            if (asciiArt[drops[i] - pieceY][i - pieceX] == " " && drops[i] - pieceY < upperEdge[i - pieceX]) {
-                ctx.fillText(text, i * font_size, drops[i] * font_size);
-            }
         }
         
         //不断在下一行变化字符
