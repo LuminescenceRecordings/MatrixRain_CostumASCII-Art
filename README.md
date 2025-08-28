@@ -1,6 +1,6 @@
 # MatrixRainCostum
 ![Step](GitHub_Tutorial/11.jpg)
-On top of this, https://github.com/bad1dea/lively_matrix
+Base on this, https://github.com/bad1dea/lively_matrix
 
 this project adds the ability of custom ASCII image and dynamic interaction with raindrops.
 # Tutorial
